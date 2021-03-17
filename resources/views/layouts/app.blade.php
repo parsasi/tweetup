@@ -18,20 +18,17 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+        <div id="app">
+            <section class="px-8 py-4">
+                <header class="container mx-auto">
+                    <h1>Tweet Up</h1>
+                </header>
+            </section>
+            <section class="px-8">
+                <main class="container mx-auto">
+                    @yield('content')
+                </main>
+            </section>
         </div>
     </body>
 </html>

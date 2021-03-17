@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Tweet;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/home', function () {
+    return view('home' , [
+        'tweets' => Tweet::all()
+    ]);
+})->middleware(['auth'])->name('home');
 
 require __DIR__.'/auth.php';

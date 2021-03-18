@@ -19,12 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home' , [
-        'tweets' => auth()->user()->timeline()
-    ]);
-})->middleware(['auth'])->name('home');
+Route::get('/home', 'App\Http\Controllers\TweetController@list')->middleware(['auth'])->name('home');
 
-Route::post('/tweet' , 'App\Http\Controllers\TweetController@create');
+Route::post('/tweet' , 'App\Http\Controllers\TweetController@create')->middleware(['auth']);
 
 require __DIR__.'/auth.php';

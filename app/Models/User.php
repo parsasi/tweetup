@@ -42,7 +42,10 @@ class User extends Authenticatable
     ];
 
     public function timeline(){
-        return Tweet::latest()->get();
+        $followTweets = $this->follows->pluck('tweets')->flatten();
+        $selfTweets = $this->tweets;
+        $allTweets = $followTweets->merge($selfTweets)->sortByDesc('updated_at');
+        return $allTweets;
     }
 
     public function getAvatarAttribute(){
@@ -51,5 +54,9 @@ class User extends Authenticatable
 
     public function follows(){
         return $this->belongsToMany(User::class , 'follows' , 'user_id' , 'following_user_id');
+    }
+
+    public function tweets(){
+        return $this->hasMany(Tweet::class);
     }
 }

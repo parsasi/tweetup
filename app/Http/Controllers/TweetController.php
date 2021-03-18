@@ -21,4 +21,10 @@ class TweetController extends Controller
         
         return redirect('/home');
     }
+
+    public function list() {
+        return view('home' , [
+            'tweets' => auth()->user()->timeline()
+        ]);
+    }
 }

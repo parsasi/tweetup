@@ -21,8 +21,10 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home' , [
-        'tweets' => Tweet::all()
+        'tweets' => auth()->user()->timeline()
     ]);
 })->middleware(['auth'])->name('home');
+
+Route::post('/tweet' , 'App\Http\Controllers\TweetController@create');
 
 require __DIR__.'/auth.php';

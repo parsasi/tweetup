@@ -10,7 +10,7 @@ use mysql_xdevapi\CollectionFind;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, Followable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,6 +55,32 @@ class User extends Authenticatable
 
     public function tweets(){
         return $this->hasMany(Tweet::class);
+    }
+
+    public function following(User $user)
+    {
+        return $this->follows()
+            ->where('following_user_id',$user->id)
+            ->exists();
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'user_id',
+            'following_user_id');
+    }
+
+    public function follow(User $user)
+    {
+        return $this->follows()->save($user);
+    }
+
+    public function unfollow(User $user)
+    {
+        return $this->follows()->detach($user);
     }
 
 }

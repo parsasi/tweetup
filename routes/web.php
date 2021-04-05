@@ -25,4 +25,8 @@ Route::post('/tweet' , 'App\Http\Controllers\TweetController@create')->middlewar
 
 Route::get('/profiles/{user:name}','App\Http\Controllers\ProfilesController@show')->middleware(['auth'])->name('profile');
 
+Route::post('/profiles/{user:name}/follow', 'App\Http\Controllers\FollowsController@store')->middleware(['auth']);
+
+Route::get('/profiles/{user:name}/edit','App\Http\Controllers\ProfilesController@edit')->middleware(['auth']);
+
 require __DIR__.'/auth.php';

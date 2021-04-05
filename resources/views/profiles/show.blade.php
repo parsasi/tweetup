@@ -13,21 +13,16 @@
                 <h2 class="font-bold text-2xl mb-0">{{$user->name}}</h2>
                 <p class="text-sm">{{$user->created_at->diffForHumans()}}</p>
             </div>
-            <div>
+            <div class="flex">
+                @if(current_user()->is($user))
                 <a
                     href="#"
                     class="rounded-full shadow py-2 px-4 text-black text-sm"
                 >
                     Edit Profile
                 </a>
-                <form>
-                    <button
-                        href="#"
-                        class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-sm"
-                    >
-                        Follow me
-                    </button>
-                </form>
+                @endif
+                <x-follow-button :user="$user"></x-follow-button>
             </div>
         </div>
         <p class="text-sm">

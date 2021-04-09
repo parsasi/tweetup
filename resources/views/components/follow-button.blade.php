@@ -1,5 +1,5 @@
 @unless(current_user()->is($user))
-<form method="post" action="/profiles/{{$user->name}}/follow">
+<form method="post" action="/profiles/{{$user->username}}/follow">
     @csrf
 
     <button

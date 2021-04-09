@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'avatar'
     ];
 
     /**
@@ -49,8 +51,12 @@ class User extends Authenticatable
         return $allTweets;
     }
 
-    public function getAvatarAttribute(){
-        return "https://i.pravatar.cc/200?u=".$this->email;
+    public function getAvatarAttribute($value){
+        return asset($value ?: '/images/default-avatar.jpeg');
+    }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password']= bcrypt($value);
     }
 
     public function tweets(){
@@ -81,6 +87,13 @@ class User extends Authenticatable
     public function unfollow(User $user)
     {
         return $this->follows()->detach($user);
+    }
+
+
+    public function path($append = ''){
+        $path = route('profile' , $this->username);
+        return $append ? "${path}/${append}" : $path;
+
     }
 
 }

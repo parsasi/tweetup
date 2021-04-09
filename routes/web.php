@@ -23,10 +23,18 @@ Route::get('/home', 'App\Http\Controllers\TweetController@list')->middleware(['a
 
 Route::post('/tweet' , 'App\Http\Controllers\TweetController@create')->middleware(['auth']);
 
-Route::get('/profiles/{user:name}','App\Http\Controllers\ProfilesController@show')->middleware(['auth'])->name('profile');
+Route::get('/profiles/{user:username}','App\Http\Controllers\ProfilesController@show')->middleware(['auth'])->name('profile');
 
-Route::post('/profiles/{user:name}/follow', 'App\Http\Controllers\FollowsController@store')->middleware(['auth']);
+Route::post('/profiles/{user:username}/follow', 'App\Http\Controllers\FollowsController@store')->middleware(['auth']);
 
-Route::get('/profiles/{user:name}/edit','App\Http\Controllers\ProfilesController@edit')->middleware(['auth']);
+Route::get('/profiles/{user:username}/edit','App\Http\Controllers\ProfilesController@edit')->middleware(['auth']);
+
+Route::patch(
+    '/profiles/{user:username}',
+    'App\Http\Controllers\ProfilesController@update'
+)->middleware(['auth']);
+
+Route::get('/explore','App\Http\Controllers\ExploreController')->middleware(['auth']);
+
 
 require __DIR__.'/auth.php';

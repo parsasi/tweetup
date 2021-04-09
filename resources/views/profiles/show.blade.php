@@ -16,7 +16,7 @@
             <div class="flex">
                 @if(current_user()->is($user))
                 <a
-                    href="#"
+                    href="{{$user->path()}}/edit"
                     class="rounded-full shadow py-2 px-4 text-black text-sm"
                 >
                     Edit Profile
